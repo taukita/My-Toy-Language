@@ -22,6 +22,7 @@ namespace MyToyLanguage.Lisp
 			_functions["/"] = new DivideFunction();
 
 			_functions["list"] = new LispFunction(e => new LispList(e));
+			_functions["close"] = new LispFunction(e => { throw new CloseReplException(); });
 		}
 
 		internal LispFunction GetFunction(string id)

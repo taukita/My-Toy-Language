@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CloseReplException.cs" />
+    <Compile Include="FunctionArityException.cs" />
     <Compile Include="Functions\AddFunction.cs" />
     <Compile Include="Functions\DivideFunction.cs" />
     <Compile Include="Functions\MultiplyFunction.cs" />

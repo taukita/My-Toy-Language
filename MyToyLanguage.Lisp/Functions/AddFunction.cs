@@ -11,11 +11,17 @@ namespace MyToyLanguage.Lisp.Functions
 	{
 		public override LispExpression Apply(IEnumerable<LispExpression> expressions)
 		{
-			return new LispAtom(expressions
-				                    .Cast<LispAtom>()
-				                    .Select(a => a.ToDecimal())
-				                    .Sum()
-				                    .ToString(CultureInfo.InvariantCulture));
+			var e = expressions as LispExpression[] ?? expressions.ToArray();
+			CannotBeCalledWithZeroArguments("+", e);
+			if (e.Length == 1)
+			{
+				var number = ((LispAtom)e.ElementAt(0)).ToDecimal();
+				return new LispAtom(number.ToString(CultureInfo.InvariantCulture));
+			}
+			return new LispAtom(e.Cast<LispAtom>()
+			                     .Select(a => a.ToDecimal())
+			                     .Sum()
+			                     .ToString(CultureInfo.InvariantCulture));
 		}
 	}
 }

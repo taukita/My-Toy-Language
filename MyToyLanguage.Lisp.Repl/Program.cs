@@ -20,6 +20,10 @@ namespace MyToyLanguage.Lisp.Repl
 					var expression = ToyLispParser.ParseExpression(input).Reduce(context);
 					Console.WriteLine(">>> {0}", expression);
 				}
+				catch (CloseReplException)
+				{
+					break;
+				}
 				catch (Exception e)
 				{
 					Console.WriteLine(e.Message);

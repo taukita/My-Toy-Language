@@ -23,5 +23,21 @@ namespace MyToyLanguage.Lisp
 		{
 			return _func(expressions);
 		}
+
+		protected void CannotBeCalledWithZeroArguments(string id, IEnumerable<LispExpression> arguments)
+		{
+			if (!arguments.Any())
+			{
+				throw new FunctionArityException(string.Format("Function '{0}' cannot be called with zero arguments.", id));
+			}
+		}
+
+		protected void CannotBeCalledWithFewerThanNArguments(string id, IEnumerable<LispExpression> arguments, int n)
+		{
+			if (arguments.Count() < n)
+			{
+				throw new FunctionArityException(string.Format("Function '{0}' cannot be called with fewer than {1} arguments.", id, n));
+			}
+		}
 	}
 }
