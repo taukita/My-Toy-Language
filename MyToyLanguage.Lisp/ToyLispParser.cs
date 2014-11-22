@@ -10,7 +10,7 @@ namespace MyToyLanguage.Lisp
 	public static class ToyLispParser
 	{
 		private static readonly Parser<LispExpression> Atom =
-			from v in Parse.Char(c => c != '(' && c != ')' && c != '"' && !char.IsWhiteSpace(c), string.Empty).Many()
+			from v in Parse.Char(c => c != '(' && c != ')' && c != '"' && c != '\'' && !char.IsWhiteSpace(c), string.Empty).Many()
 			select new LispAtom(new string(v.ToArray()));
 
 		private static readonly Parser<LispExpression> List =
@@ -29,7 +29,18 @@ namespace MyToyLanguage.Lisp
 			from rquote in Parse.Char('"')
 			select new LispQuotedString(new string(v.ToArray()));
 
-		private static readonly Parser<LispExpression> Expression = Atom.XOr(List).XOr(QuotedString);
+		private static readonly Parser<LispExpression> QuotedList =
+			from quote in Parse.Char('\'')
+			from lparen in Parse.Char('(')
+			from spaces1 in Parse.WhiteSpace.Many()
+			from expressions in
+				(from expr in Parse.Ref(() => Expression)
+				 from spaces2 in Parse.WhiteSpace.Many()
+				 select expr).Many()
+			from rparen in Parse.Char(')')
+			select new LispQuotedList(expressions);
+
+		private static readonly Parser<LispExpression> Expression = Atom.XOr(List).XOr(QuotedString).XOr(QuotedList);
 
 		public static LispExpression ParseExpression(string code)
 		{

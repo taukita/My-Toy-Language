@@ -8,28 +8,28 @@ namespace MyToyLanguage.Lisp
 {
 	public class LispList : LispExpression
 	{
-		private readonly LispExpression[] _expressions;
+		protected readonly LispExpression[] Expressions;
 
 		public LispList(IEnumerable<LispExpression> expressions)
 		{
-			_expressions = expressions.ToArray();
+			Expressions = expressions.ToArray();
 		}
 
 		public override string ToString()
 		{
-			return string.Format("({0})", string.Join(" ", _expressions.Select(a => a.ToString())));
+			return string.Format("({0})", string.Join(" ", Expressions.Select(a => a.ToString())));
 		}
 
 		public override LispExpression Reduce(LispContext context)
 		{
-			if (_expressions.Length > 0)
+			if (Expressions.Length > 0)
 			{
-				if (!(_expressions[0] is LispAtom))
+				if (!(Expressions[0] is LispAtom))
 				{
 					throw new InvalidOperationException();
 				}
-				var func = context.GetFunction(_expressions[0].ToString());
-				return func.Apply(_expressions.Skip(1));
+				var func = context.GetFunction(Expressions[0].ToString());
+				return func.Apply(Expressions.Skip(1));
 			}
 			return this;
 		}

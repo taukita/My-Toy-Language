@@ -51,6 +51,7 @@
     <Compile Include="LispExpression.cs" />
     <Compile Include="LispFunction.cs" />
     <Compile Include="LispList.cs" />
+    <Compile Include="LispQuotedList.cs" />
     <Compile Include="LispQuotedString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ToyLispParser.cs" />
