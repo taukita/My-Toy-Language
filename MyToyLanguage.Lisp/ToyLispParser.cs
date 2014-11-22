@@ -33,7 +33,9 @@ namespace MyToyLanguage.Lisp
 
 		public static LispExpression ParseExpression(string code)
 		{
-			return Expression.End().Parse(code);
+			return (from spaces1 in Parse.WhiteSpace.Many()
+			        from expression in Expression.End()
+			        select expression).Parse(code);
 		}
 	}
 }

@@ -42,8 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Functions\AddFunction.cs" />
+    <Compile Include="Functions\DivideFunction.cs" />
+    <Compile Include="Functions\MultiplyFunction.cs" />
+    <Compile Include="Functions\SubtractFunction.cs" />
     <Compile Include="LispAtom.cs" />
+    <Compile Include="LispContext.cs" />
     <Compile Include="LispExpression.cs" />
+    <Compile Include="LispFunction.cs" />
     <Compile Include="LispList.cs" />
     <Compile Include="LispQuotedString.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

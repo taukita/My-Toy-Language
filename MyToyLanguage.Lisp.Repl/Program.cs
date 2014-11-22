@@ -10,16 +10,15 @@ namespace MyToyLanguage.Lisp.Repl
 	{
 		static void Main(string[] args)
 		{
+			var context = new LispContext();
 			while (true)
 			{
 				Console.Write("<<< ");
 				var input = Console.ReadLine();
 				try
 				{
-					var expression = ToyLispParser.ParseExpression(input);
-					Console.Write(">>> ");
-					//Console.WriteLine(expression.Reduce(null));
-					Console.WriteLine(expression.ToString());
+					var expression = ToyLispParser.ParseExpression(input).Reduce(context);
+					Console.WriteLine(">>> {0}", expression);
 				}
 				catch (Exception e)
 				{

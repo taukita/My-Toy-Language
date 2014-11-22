@@ -19,5 +19,19 @@ namespace MyToyLanguage.Lisp
 		{
 			return string.Format("({0})", string.Join(" ", _expressions.Select(a => a.ToString())));
 		}
+
+		public override LispExpression Reduce(LispContext context)
+		{
+			if (_expressions.Length > 0)
+			{
+				if (!(_expressions[0] is LispAtom))
+				{
+					throw new InvalidOperationException();
+				}
+				var func = context.GetFunction(_expressions[0].ToString());
+				return func.Apply(_expressions.Skip(1));
+			}
+			return this;
+		}
 	}
 }

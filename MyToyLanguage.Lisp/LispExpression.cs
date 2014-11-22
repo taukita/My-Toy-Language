@@ -7,7 +7,8 @@ using Sprache;
 
 namespace MyToyLanguage.Lisp
 {
-	public class LispExpression
+	public abstract class LispExpression
 	{
+		public abstract LispExpression Reduce(LispContext context);
 	}
 }

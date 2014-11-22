@@ -10,6 +10,11 @@ namespace MyToyLanguage.Lisp
 	{
 		private readonly string _value;
 
+		public override LispExpression Reduce(LispContext context)
+		{
+			return this;
+		}
+
 		public LispQuotedString(string value)
 		{
 			_value = value;
