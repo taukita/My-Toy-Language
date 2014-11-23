@@ -29,7 +29,7 @@ namespace MyToyLanguage.Lisp
 					throw new InvalidOperationException();
 				}
 				var func = context.GetFunction(Expressions[0].ToString());
-				return func.Apply(Expressions.Skip(1));
+				return func.Apply(Expressions.Skip(1), context);
 			}
 			return this;
 		}

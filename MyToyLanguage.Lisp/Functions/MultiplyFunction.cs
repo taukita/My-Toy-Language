@@ -9,11 +9,12 @@ namespace MyToyLanguage.Lisp.Functions
 {
 	internal class MultiplyFunction : LispFunction
 	{
-		public override LispExpression Apply(IEnumerable<LispExpression> expressions)
+		public override LispExpression Apply(IEnumerable<LispExpression> expressions, LispContext context)
 		{
 			var e = expressions as LispExpression[] ?? expressions.ToArray();
 			CannotBeCalledWithFewerThanNArguments("*", e, 2);
-			return new LispAtom(e.Cast<LispAtom>()
+			return new LispAtom(e.Select(a => a.Reduce(context))
+			                     .Cast<LispAtom>()
 			                     .Select(a => a.ToDecimal())
 			                     .Aggregate(1m, (current, d) => current*d)
 			                     .ToString(CultureInfo.InvariantCulture));

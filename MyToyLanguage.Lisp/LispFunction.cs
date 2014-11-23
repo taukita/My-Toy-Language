@@ -19,7 +19,7 @@ namespace MyToyLanguage.Lisp
 		{
 		}
 
-		public virtual LispExpression Apply(IEnumerable<LispExpression> expressions)
+		public virtual LispExpression Apply(IEnumerable<LispExpression> expressions, LispContext context)
 		{
 			return _func(expressions);
 		}
@@ -37,6 +37,14 @@ namespace MyToyLanguage.Lisp
 			if (arguments.Count() < n)
 			{
 				throw new FunctionArityException(string.Format("Function '{0}' cannot be called with fewer than {1} arguments.", id, n));
+			}
+		}
+
+		protected void CanBeCalledWithOnlyNArguments(string id, IEnumerable<LispExpression> arguments, int n)
+		{
+			if (arguments.Count() < n)
+			{
+				throw new FunctionArityException(string.Format("Function '{0}' can be called with only {1} arguments.", id, n));
 			}
 		}
 	}

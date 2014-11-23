@@ -23,6 +23,7 @@ namespace MyToyLanguage.Lisp
 
 			_functions["list"] = new LispFunction(e => new LispList(e));
 			_functions["close"] = new LispFunction(e => { throw new CloseReplException(); });
+			_functions["if"] = new IfFunction();
 		}
 
 		internal LispFunction GetFunction(string id)
