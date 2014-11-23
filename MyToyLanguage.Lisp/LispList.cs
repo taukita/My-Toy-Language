@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyToyLanguage.Lisp
 {
@@ -12,12 +10,7 @@ namespace MyToyLanguage.Lisp
 
 		public LispList(IEnumerable<LispExpression> expressions)
 		{
-			Expressions = expressions.ToArray();
-		}
-
-		public override string ToString()
-		{
-			return string.Format("({0})", string.Join(" ", Expressions.Select(a => a.ToString())));
+			Expressions = expressions as LispExpression[] ?? expressions.ToArray();
 		}
 
 		public override LispExpression Reduce(LispContext context)
@@ -39,6 +32,11 @@ namespace MyToyLanguage.Lisp
 				}
 			}
 			return this;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("({0})", string.Join(" ", Expressions.Select(a => a.ToString())));
 		}
 	}
 }
