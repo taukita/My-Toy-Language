@@ -29,7 +29,14 @@ namespace MyToyLanguage.Lisp
 					throw new InvalidOperationException();
 				}
 				var func = context.GetFunction(Expressions[0].ToString());
-				return func.Apply(Expressions.Skip(1), context);
+				try
+				{
+					return func.Apply(Expressions.Skip(1), context);
+				}
+				catch (FunctionArityException e)
+				{
+					throw new AggregateException(string.Format("[{0}] {1}", Position, e.Message), e);
+				}
 			}
 			return this;
 		}

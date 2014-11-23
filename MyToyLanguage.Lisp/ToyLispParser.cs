@@ -40,7 +40,7 @@ namespace MyToyLanguage.Lisp
 			from rparen in Parse.Char(')')
 			select new LispQuotedList(expressions);
 
-		private static readonly Parser<LispExpression> Expression = Atom.XOr(List).XOr(QuotedString).XOr(QuotedList);
+		private static readonly Parser<LispExpression> Expression = Atom.XOr(List).XOr(QuotedString).XOr(QuotedList).Positioned();
 
 		public static LispExpression ParseExpression(string code)
 		{
