@@ -9,10 +9,18 @@ namespace MyToyLanguage.Lisp.Functions
 {
 	internal class AddFunction : LispFunction
 	{
+		public override string Id
+		{
+			get
+			{
+				return "+";
+			}
+		}
+
 		public override LispExpression Apply(IEnumerable<LispExpression> expressions, LispContext context)
 		{
 			var e = expressions as LispExpression[] ?? expressions.ToArray();
-			CannotBeCalledWithZeroArguments("+", e);
+			CannotBeCalledWithZeroArguments(Id, e);
 			if (e.Length == 1)
 			{
 				var number = ((LispAtom)e.ElementAt(0).Reduce(context)).ToDecimal();

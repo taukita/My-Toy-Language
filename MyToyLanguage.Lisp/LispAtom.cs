@@ -23,7 +23,8 @@ namespace MyToyLanguage.Lisp
 
 		public override LispExpression Reduce(LispContext context)
 		{
-			return this;
+			decimal number;
+			return decimal.TryParse(_value, out number) ? this : context[_value];
 		}
 
 		public decimal ToDecimal()

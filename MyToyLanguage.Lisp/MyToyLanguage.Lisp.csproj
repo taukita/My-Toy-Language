@@ -48,6 +48,7 @@
     <Compile Include="Functions\DivideFunction.cs" />
     <Compile Include="Functions\IfFunction.cs" />
     <Compile Include="Functions\MultiplyFunction.cs" />
+    <Compile Include="Functions\SetFunction.cs" />
     <Compile Include="Functions\SubtractFunction.cs" />
     <Compile Include="LispAtom.cs" />
     <Compile Include="LispContext.cs" />

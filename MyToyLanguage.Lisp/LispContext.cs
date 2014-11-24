@@ -11,24 +11,52 @@ namespace MyToyLanguage.Lisp
 	public class LispContext
 	{
 		private readonly Dictionary<string, LispFunction> _functions;
+		private readonly Dictionary<string, LispExpression> _boundSymbols;
 
 		public LispContext()
 		{
 			_functions = new Dictionary<string, LispFunction>();
+			_boundSymbols = new Dictionary<string, LispExpression>();
 
-			_functions["+"] = new AddFunction();
-			_functions["*"] = new MultiplyFunction();
-			_functions["-"] = new SubtractFunction();
-			_functions["/"] = new DivideFunction();
+			RegisterFunction(new AddFunction());
+			RegisterFunction(new MultiplyFunction());
+			RegisterFunction(new SubtractFunction());
+			RegisterFunction(new DivideFunction());
 
-			_functions["list"] = new LispFunction(e => new LispList(e));
-			_functions["close"] = new LispFunction(e => { throw new CloseReplException(); });
-			_functions["if"] = new IfFunction();
+			RegisterFunction("list", e => new LispList(e));
+			RegisterFunction("close", e => { throw new CloseReplException(); });
+
+			RegisterFunction(new IfFunction());
+			RegisterFunction(new SetFunction());
+		}
+
+		private void RegisterFunction(LispFunction function)
+		{
+			_functions[function.Id] = function;
+			_boundSymbols[function.Id] = function;
+		}
+
+		private void RegisterFunction(string id, Func<IEnumerable<LispExpression>, LispExpression> func)
+		{
+			_functions[id] = new LispFunction(func);
+			_boundSymbols[id] = _functions[id];
 		}
 
 		internal LispFunction GetFunction(string id)
 		{
 			return _functions[id];
+		}
+
+		internal LispExpression this[string id]
+		{
+			get
+			{
+				return _boundSymbols[id];
+			}
+			set
+			{
+				_boundSymbols[id] = value;
+			}
 		}
 	}
 }

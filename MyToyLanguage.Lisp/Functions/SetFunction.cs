@@ -6,21 +6,24 @@ using System.Threading.Tasks;
 
 namespace MyToyLanguage.Lisp.Functions
 {
-	class IfFunction : LispFunction
+	internal class SetFunction : LispFunction
 	{
 		public override string Id
 		{
 			get
 			{
-				return "if";
+				return "set";
 			}
 		}
 
 		public override LispExpression Apply(IEnumerable<LispExpression> expressions, LispContext context)
 		{
 			var e = expressions as LispExpression[] ?? expressions.ToArray();
-			CanBeCalledWithOnlyNArguments(Id, e, 3);
-			return e[0].Reduce(context).ToString() != "()" ? e[1].Reduce(context) : e[2].Reduce(context);
+			CanBeCalledWithOnlyNArguments(Id, e, 2);
+			var id = e[0].ToString();
+			var value = e[1].Reduce(context);
+			context[id] = value;
+			return value;
 		}
 	}
 }
