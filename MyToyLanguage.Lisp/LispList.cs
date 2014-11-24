@@ -21,7 +21,7 @@ namespace MyToyLanguage.Lisp
 				{
 					throw new InvalidOperationException();
 				}
-				var func = context.GetFunction(Expressions[0].ToString());
+				var func = (LispFunction)context[Expressions[0].ToString()];
 				try
 				{
 					return func.Apply(Expressions.Skip(1), context);
