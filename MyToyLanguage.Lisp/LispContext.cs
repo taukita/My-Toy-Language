@@ -8,8 +8,10 @@ using MyToyLanguage.Lisp.Functions;
 
 namespace MyToyLanguage.Lisp
 {
-	public class LispContext : Dictionary<string, LispExpression>
+	public class LispContext
 	{
+		protected readonly Dictionary<string, LispExpression> InnerDictionary = new Dictionary<string, LispExpression>();
+
 		public LispContext()
 		{
 			RegisterFunction(new AddFunction());
@@ -22,6 +24,19 @@ namespace MyToyLanguage.Lisp
 
 			RegisterFunction(new IfFunction());
 			RegisterFunction(new SetFunction());
+			RegisterFunction(new LambdaFunction());
+		}
+
+		public virtual LispExpression this[string key]
+		{
+			get
+			{
+				return InnerDictionary[key];
+			}
+			set
+			{
+				InnerDictionary[key] = value;
+			}
 		}
 
 		private void RegisterFunction(LispFunction function)

@@ -42,11 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AnonymousFunction.cs" />
+    <Compile Include="ChildContext.cs" />
     <Compile Include="CloseReplException.cs" />
     <Compile Include="FunctionArityException.cs" />
     <Compile Include="Functions\AddFunction.cs" />
     <Compile Include="Functions\DivideFunction.cs" />
     <Compile Include="Functions\IfFunction.cs" />
+    <Compile Include="Functions\LambdaFunction.cs" />
     <Compile Include="Functions\MultiplyFunction.cs" />
     <Compile Include="Functions\SetFunction.cs" />
     <Compile Include="Functions\SubtractFunction.cs" />

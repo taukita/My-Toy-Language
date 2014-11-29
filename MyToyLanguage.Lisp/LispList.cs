@@ -6,7 +6,7 @@ namespace MyToyLanguage.Lisp
 {
 	public class LispList : LispExpression
 	{
-		protected readonly LispExpression[] Expressions;
+		public readonly LispExpression[] Expressions;
 
 		public LispList(IEnumerable<LispExpression> expressions)
 		{
@@ -17,11 +17,14 @@ namespace MyToyLanguage.Lisp
 		{
 			if (Expressions.Length > 0)
 			{
+				/*
 				if (!(Expressions[0] is LispAtom))
 				{
 					throw new InvalidOperationException();
 				}
 				var func = (LispFunction)context[Expressions[0].ToString()];
+				 */
+				var func = (LispFunction) Expressions[0].Reduce(context);
 				try
 				{
 					return func.Apply(Expressions.Skip(1), context);

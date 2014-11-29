@@ -4,10 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace MyToyLanguage.Lisp.Tests
 {
 	[TestClass]
-	public class UnitTest1
+	public class ToyLispParserUnitTest
 	{
 		[TestMethod]
-		public void TestMethod1()
+		public void ShouldUnderstandEmptyList()
 		{
 			var expr = ToyLispParser.ParseExpression("()");
 
@@ -15,7 +15,7 @@ namespace MyToyLanguage.Lisp.Tests
 		}
 
 		[TestMethod]
-		public void TestMethod2()
+		public void ShouldApplyFunctionToAtomsOrLists1()
 		{
 			var context = new LispContext();
 
@@ -27,7 +27,7 @@ namespace MyToyLanguage.Lisp.Tests
 		}
 
 		[TestMethod]
-		public void TestMethod3()
+		public void ShouldApplyFunctionToAtomsOrLists2()
 		{
 			var context = new LispContext();
 
@@ -37,7 +37,7 @@ namespace MyToyLanguage.Lisp.Tests
 		}
 
 		[TestMethod]
-		public void TestMethod4()
+		public void ShouldApplyFunctionToAtomsOrLists3()
 		{
 			var context = new LispContext();
 
@@ -49,7 +49,7 @@ namespace MyToyLanguage.Lisp.Tests
 		}
 
 		[TestMethod]
-		public void TestMethod5()
+		public void ShouldReturnRightValueFromIfFunction()
 		{
 			var context = new LispContext();
 
@@ -58,6 +58,14 @@ namespace MyToyLanguage.Lisp.Tests
 
 			Assert.AreEqual("1", expr1.ToString());
 			Assert.AreEqual("2", expr2.ToString());
+		}
+
+		[TestMethod]
+		public void ShouldUnderstandLambdasAndApplyAnonymousFunctions()
+		{
+			var context = new LispContext();
+			var expr = ToyLispParser.ParseExpression("((lambda (x y) (+ x y)) 1 2)").Reduce(context);
+			Assert.AreEqual("3", expr.ToString());
 		}
 	}
 }
